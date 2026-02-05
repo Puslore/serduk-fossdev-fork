@@ -1,0 +1,20 @@
+from script import sum
+from script import divide
+def test_sum():
+    a = 1
+    b = 2
+    result = 3
+    assert sum(a, b) == result
+
+def test_divide():
+    a = 4
+    b = 2
+    result = 0.5
+    assert divide(a, b) == result
+
+def test_divide_zero():
+
+
+if __name__ == '__main__':
+    test_divide()
+    test_sum()
