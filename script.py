@@ -6,8 +6,6 @@ def divide(a, b):
         raise ValueError("Denominator couldn't be a zero")
     if isinstance(a, str) or isinstance(b, str):
 	    raise ValueError("Divisors couldn't be a string")
-<<<<<<< HEAD
+    if isinstance(a, list) or isinstance(b, list):
+        raise ValueError("Could not divide lists")
     return a / b
-=======
-    return a / b
->>>>>>> fix/missing-test
