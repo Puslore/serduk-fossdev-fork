@@ -11,3 +11,6 @@ def divide(a, b):
         raise ValueError("Could not divide lists")
     
     return a / b
+
+def substruct(a, b):
+    return a - b
