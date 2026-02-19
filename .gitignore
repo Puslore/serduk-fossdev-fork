@@ -3,6 +3,10 @@
 # Prerequisites
 *.d
 
+# Временные файлы Vim
+*~
+*.un~
+
 # Compiled Object files
 *.slo
 *.lo
