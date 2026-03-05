@@ -77,8 +77,16 @@ def test_tax_calculator():
     assert calculate_tax(10) == 1.5
     assert calculate_tax(1) == 0.15
     assert calculate_tax(234) == 35.1
-    print("Test UNBUGGED TAX CALCULATOR PASSED")
     assert calculate_tax(2.34) == 0.35
+    print("Test UNBUGGED TAX CALCULATOR PASSED")
+
+def test_negative_income():
+    try:
+        calculate_tax(-100)
+        print("Test NEGATIVE INCOME FAILED")
+    except ValueError as e:
+        print("Test NEGATIVE INCOME PASSED")
+
 
 if __name__ == "__main__":
     test_addition()
@@ -89,3 +97,4 @@ if __name__ == "__main__":
     test_addition_commutative()
     test_tax_calculator_pesticide()
     test_tax_calculator()
+    test_negative_income()
