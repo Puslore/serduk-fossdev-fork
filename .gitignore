@@ -3,6 +3,8 @@
 # Prerequisites
 *.d
 
+*__init__.py
+
 # Временные файлы Vim
 *~
 *.un~
