@@ -5,8 +5,8 @@
 # Раннее тестирование позволяет сэкономить время позднее
 # Тесты показывают наличие ошибок, а не отсутсвие
 # Тесты не должны дублировать логику тестируемого кода
-# Тесты не должны использовать ВСЕ наборы входных параметров
-# Тесты должны покрывать "кластеры" входных параметров
+# [DONE] Тесты не должны использовать ВСЕ наборы входных параметров
+# [DONE] Тесты должны покрывать "кластеры" входных параметров
 # [DONE] Тестовые функции должны тестировать логические блоки
 
 # Тесты должны обнаруживать новые ошибки (pescicide paradox)
@@ -14,7 +14,9 @@
 
 from math_demo import (
     add,
-    add_with_bug
+    add_with_bug,
+    calculate_tax_bugged,
+    calculate_tax
 )
 
 def test_addition():
@@ -56,6 +58,28 @@ def test_addition_commutative():
     assert add(5, 9) == 14  
     print("Test COMMUTATIVE PASSED")
 
+def test_tax_calculator_pesticide():
+    # only integers doesn't allow some test cases
+
+    assert calculate_tax_bugged(1000) == 150
+    assert calculate_tax_bugged(100) == 15
+    assert calculate_tax_bugged(10) == 1.5
+    assert calculate_tax_bugged(1) == 0.15
+    assert calculate_tax_bugged(234) == 35.1
+    print("Test TAX CALCULATOR PASSED")
+    # float may give us test cases 
+    # that doesnt pass
+    # assert calculate_tax_bugged(2.34) == 0.35
+
+def test_tax_calculator():
+    assert calculate_tax(1000) == 150
+    assert calculate_tax(100) == 15
+    assert calculate_tax(10) == 1.5
+    assert calculate_tax(1) == 0.15
+    assert calculate_tax(234) == 35.1
+    print("Test UNBUGGED TAX CALCULATOR PASSED")
+    assert calculate_tax(2.34) == 0.35
+
 if __name__ == "__main__":
     test_addition()
     test_addition_with_bug()
@@ -63,3 +87,5 @@ if __name__ == "__main__":
     # test_addiction_overkill() #try it on your risk
     test_addition_clusters()
     test_addition_commutative()
+    test_tax_calculator_pesticide()
+    test_tax_calculator()
