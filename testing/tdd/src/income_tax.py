@@ -1,2 +1,2 @@
-def calculate_tax():
-    return None
+def calculate_tax(income):
+    return income * 0.13
