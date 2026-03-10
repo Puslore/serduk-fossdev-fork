@@ -5,6 +5,7 @@
 # 20 – 50 млн руб.	20%	3 402 000 + 20% с суммы превышения
 # Свыше 50 млн руб.	22%	9 402 000 + 22% с суммы превышения
 from income_tax import calculate_tax
+import pytest 
 
 # TODO make test to negative/float incomes
 
@@ -28,3 +29,7 @@ def test_income_tier_5_basic():
     # 60_000_000 -> 2_400_000 * 0.13 + 2_600_000 * 0.15 + 15_000_000 * 0.18 +
     # + 30_000_000 * 0.20 + 10_000_000 * 0.22
     assert calculate_tax(60_000_000) == 11_602_000
+
+@pytest.mark.xfail
+def test_negative_income():
+    assert calculate_tax(-1_000)

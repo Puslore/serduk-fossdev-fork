@@ -11,4 +11,4 @@ def calculate_tax(income):
     for start, addition, taxrate in tiers[::-1]:
         if income > start:
             return (income - start) * taxrate + addition
-    raise RuntimeError("Error in tax calculation {income}")
+    raise RuntimeError(f"Error in tax calculation {income}")
