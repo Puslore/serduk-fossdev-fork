@@ -2,7 +2,7 @@
 ### C++ ###
 # Prerequisites
 *.d
-__init__.py
+*__init__.py
 # Временные файлы Vim
 *~
 *.un~
