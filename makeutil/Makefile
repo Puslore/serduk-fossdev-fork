@@ -1,4 +1,6 @@
 .PHONY: run shell clean 
+.ONESHELL:
+
 
 VENV = .venv
 PYTHON = $(VENV)/bin/python
@@ -23,14 +25,11 @@ clean:
 	rm -rf $(VENV)
 
 check-requirements:
-	@grep -hE '^(import|from) [a-zA-Z0-9_]+' src/*.py | \
-	sed -E 's/^(import|from) ([a-zA-Z0-9_]+).*/\2/' | sort -u
-	> .imports_temp
+	@grep -hE '^(import|from) [a-zA-Z0-9_]+' src/*.py | sed -E 's/^(import|from) ([a-zA-Z0-9_]+).*/\2/' | sort -u > .imports_temp
 
-	@cat .imports_temp
 	@while read import; do \
-		if ! grep -qi "$$import" requirements.txt; then \
-			echo "Module '$$import' not found in requirements"; \
+		if ! $(PYTHON) -c "import $$import" 2>/dev/null; then \
+			echo "Module '$$import' not founded in virtual environment"; \
 			exit 1; \
 		fi; \
 	done < .imports_temp
