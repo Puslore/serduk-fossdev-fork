@@ -1,4 +1,4 @@
-.PHONY: run clean 
+.PHONY: run shell clean 
 
 VENV = .venv
 PYTHON = $(VENV)/bin/python
@@ -21,3 +21,18 @@ shell: $(VENV)/bin/activate
 
 clean:
 	rm -rf $(VENV)
+
+check-requirements:
+	@grep -hE '^(import|from) [a-zA-Z0-9_]+' src/*.py | \
+	sed -E 's/^(import|from) ([a-zA-Z0-9_]+).*/\2/' | sort -u
+	> .imports_temp
+
+	@cat .imports_temp
+	@while read import; do \
+		if ! grep -qi "$$import" requirements.txt; then \
+			echo "Module '$$import' not found in requirements"; \
+			exit 1; \
+		fi; \
+	done < .imports_temp
+	@echo "All modules found"
+	@rm .imports_temp
