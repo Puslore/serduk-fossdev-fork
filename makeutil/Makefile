@@ -14,5 +14,10 @@ $(VENV)/bin/activate: requirements.txt
 run: $(VENV)/bin/activate
 	$(PYTHON) src/app.py
 
+shell: $(VENV)/bin/activate
+	
+	@echo "entering venv, type exit to quit"
+	@PATH=$(shell pwd)/$(VENV)/bin:$$PATH bash
+
 clean:
 	rm -rf $(VENV)
