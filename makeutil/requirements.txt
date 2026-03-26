@@ -17,3 +17,5 @@ pytokens
 requests
 typing_extensions
 urllib3
+fastapi
+numpy
