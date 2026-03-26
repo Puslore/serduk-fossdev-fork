@@ -1,5 +1,4 @@
 .PHONY: run shell clean 
-.ONESHELL:
 
 
 VENV = .venv
@@ -26,12 +25,18 @@ clean:
 
 check-requirements:
 	@grep -hE '^(import|from) [a-zA-Z0-9_]+' src/*.py | sed -E 's/^(import|from) ([a-zA-Z0-9_]+).*/\2/' | sort -u > .imports_temp
-
+	@errors=0; \
+	
 	@while read import; do \
 		if ! $(PYTHON) -c "import $$import" 2>/dev/null; then \
 			echo "Module '$$import' not founded in virtual environment"; \
-			exit 1; \
+			errors=$$((errors + 1)); \
 		fi; \
-	done < .imports_temp
-	@echo "All modules found"
-	@rm .imports_temp
+	done < .imports_temp; \
+	\
+	if [ $$errors -gt 0 ]; then \
+		echo "Not founded modules: $$errors. Please install it"; \
+		exit 1; \
+	else \
+		echo "All modules found"; \
+	fi
