@@ -60,3 +60,6 @@ lint:
 format:
 	@echo "Run python-code formatter 'black'"
 	python -m black ./src
+
+check: check-requirements lint format
+	@echo "All checks started"
