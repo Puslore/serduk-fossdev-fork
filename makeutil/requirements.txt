@@ -20,4 +20,3 @@ urllib3
 pytest
 fastapi
 numpy
-

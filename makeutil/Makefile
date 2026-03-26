@@ -69,4 +69,3 @@ test: $(VENV)/bin/activate
 
 check: check-requirements lint format
 	@echo "All checks started"
-
