@@ -56,6 +56,7 @@ lint: $(VENV)/bin/activate
 
 format: $(VENV)/bin/activate
 	@echo "Run python-code formatter 'black'"
+
 	$(PYTHON) -m black ./src
 
 typecheck: $(VENV)/bin/activate
@@ -65,3 +66,7 @@ typecheck: $(VENV)/bin/activate
 test: $(VENV)/bin/activate
 	@
 	$(PYTHON) -m pytest tests
+
+check: check-requirements lint format
+	@echo "All checks started"
+
