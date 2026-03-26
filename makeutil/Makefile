@@ -3,7 +3,7 @@
 
 VENV = .venv
 PYTHON = $(VENV)/bin/python
-PIP = $(VENV)/bin/PIP
+PIP = $(VENV)/bin/pip
 
 $(VENV)/bin/activate: requirements.txt
 	python3 -m venv $(VENV)
