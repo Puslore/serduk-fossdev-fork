@@ -52,3 +52,11 @@ check-requirements:
 
 # typecheck: $(VENV)/bin/activate
 # 	($vVENV)
+
+lint:
+	@echo "Run python-code linter 'flake8'"
+	python -m flake8 ./src
+
+format:
+	@echo "Run python-code formatter 'black'"
+	python -m black ./src
