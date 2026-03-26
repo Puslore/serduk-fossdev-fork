@@ -1,3 +1,4 @@
+MAKEFLAGS += --no-print-directory
 .PHONY: run shell clean 
 
 
@@ -24,19 +25,27 @@ clean:
 	rm -rf $(VENV)
 
 check-requirements:
-	@grep -hE '^(import|from) [a-zA-Z0-9_]+' src/*.py | sed -E 's/^(import|from) ([a-zA-Z0-9_]+).*/\2/' | sort -u > .imports_temp
-	@errors=0; \
-	
-	@while read import; do \
+	@
+	@grep -hE '^(import|from) [a-zA-Z0-9_]+' src/*.py | sed -E 's/^(import|from) ([a-zA-Z0-9_]+).*/\2/' | sort -u > .imports_temp; \
+	> .missing_temp; \
+	missing_count=0; \
+	while read import; do \
 		if ! $(PYTHON) -c "import $$import" 2>/dev/null; then \
 			echo "Module '$$import' not founded in virtual environment"; \
-			errors=$$((errors + 1)); \
+			echo "$$import" >> .missing_temp; \
+			missing_count=$$((missing_count + 1)); \
 		fi; \
 	done < .imports_temp; \
+	rm -f .imports_temp; \
 	\
-	if [ $$errors -gt 0 ]; then \
-		echo "Not founded modules: $$errors. Please install it"; \
-		exit 1; \
+	if [ "$$missing_count" -gt 0 ]; then \
+		echo "Updating requirements.txt..."; \
+		[ -n "$$(tail -c1 requirements.txt 2>/dev/null)" ] && echo "" >> requirements.txt; \
+		cat .missing_temp >> requirements.txt; \
+		echo "Installing required packages ($$missing_count)"; \
+		$(PIP) install -r requirements.txt; \
+		echo "All packages installed and updated"; \
 	else \
 		echo "All modules found"; \
-	fi
+	fi; \
+	rm -f .missing_temp
