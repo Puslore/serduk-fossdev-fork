@@ -1,5 +1,5 @@
 MAKEFLAGS += --no-print-directory
-.PHONY: run shell clean 
+.PHONY: run shell clean test
 
 
 VENV = .venv
@@ -50,16 +50,18 @@ check-requirements:
 	fi; \
 	rm -f .missing_temp
 
-lint:
+lint: $(VENV)/bin/activate
 	@echo "Run python-code linter 'flake8'"
-	python -m flake8 ./src
+	$(PYTHON) -m flake8 ./src
 
-format:
+format: $(VENV)/bin/activate
 	@echo "Run python-code formatter 'black'"
-	python -m black ./src
+	$(PYTHON) -m black ./src
 
 typecheck: $(VENV)/bin/activate
 	@
 	$(PYTHON) -m mypy src
 
-
+test: $(VENV)/bin/activate
+	@
+	$(PYTHON) -m pytest tests
