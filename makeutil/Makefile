@@ -58,7 +58,8 @@ format:
 	@echo "Run python-code formatter 'black'"
 	python -m black ./src
 
-MYPY = $(VENV)/bin/lib/mypy
 typecheck: $(VENV)/bin/activate
 	@
-	$(PYTHON) -m mypy src/*; \
+	$(PYTHON) -m mypy src
+
+
