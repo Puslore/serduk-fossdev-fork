@@ -50,9 +50,6 @@ check-requirements:
 	fi; \
 	rm -f .missing_temp
 
-# typecheck: $(VENV)/bin/activate
-# 	($vVENV)
-
 lint:
 	@echo "Run python-code linter 'flake8'"
 	python -m flake8 ./src
@@ -60,3 +57,8 @@ lint:
 format:
 	@echo "Run python-code formatter 'black'"
 	python -m black ./src
+
+MYPY = $(VENV)/bin/lib/mypy
+typecheck: $(VENV)/bin/activate
+	@
+	$(PYTHON) -m mypy src/*; \
