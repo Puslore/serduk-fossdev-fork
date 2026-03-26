@@ -49,3 +49,6 @@ check-requirements:
 		echo "All modules found"; \
 	fi; \
 	rm -f .missing_temp
+
+# typecheck: $(VENV)/bin/activate
+# 	($vVENV)
