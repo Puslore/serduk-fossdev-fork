@@ -20,3 +20,6 @@ urllib3
 pytest
 fastapi
 numpy
+
+setuptools
+build
